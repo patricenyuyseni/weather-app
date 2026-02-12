@@ -57,6 +57,9 @@ body {
 .search-box button:hover {
     background: #00c6ff;
 }
+#weather-icon{
+    display: none;
+}
 
 .weather-info {
     margin-top: 15px;
