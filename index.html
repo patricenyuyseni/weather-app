@@ -6,33 +6,44 @@
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
-    <div class="container">
-      <h1>Weather App</h1>
+<body>
+  <div class="container">
+    
+    <h1 class="app-title">Weather App</h1>
 
-      <div class="search-box">
-        <input type="text" id="city-input" placeholder="Enter city name" />
-        <button id="search-btn">Search</button>
-      </div>
-
-      <p id="error-message"></p>
-
-      <div class="weather-info">
-        <h2 id="city-name"></h2>
-
-        <img
-          id="weather-icon"
-          src=""
-          alt="Weather Icon"
-        />
-
-        <p id="temperature"></p>
-        <p id="description"></p>
-        <p id="humidity"></p>
-        <p id="wind"></p>
-      </div>
+    
+    <div class="search-box">
+      <input type="text" id="city-input" placeholder="Search city..." />
+      <button id="search-btn">🔍</button>
     </div>
 
-    <script src="script.js"></script>
-  </body>
-</html>
+    <p id="error-message"></p>
+
+    
+    <div class="welcome-state" id="welcome">
+      <div class="welcome-icon">🌤</div>
+      <p>Search for a city to see the weather</p>
+    </div>
+
+    
+    <div class="weather-info" id="weather-info">
+
+      <h2 id="city-name"></h2>
+
+      <div class="main-weather">
+        <img id="weather-icon" src="" alt="Weather Icon" />
+        <p id="temperature"></p>
+      </div>
+
+      <p id="description"></p>
+
+      <div class="details">
+        <div class="detail-card" id="humidity"></div>
+        <div class="detail-card" id="wind"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>

@@ -9,8 +9,17 @@ const errorMessage = document.getElementById("error-message");
 const weatherIcon = document.getElementById("weather-icon");
 
 
+const welcome = document.getElementById("welcome");
+const weatherInfo = document.getElementById("weather-info");
+
 const apiKey = "7d55c497552816a176b82d8ddeaa241f";
 
+
+window.onload = function () {
+  if (welcome) welcome.style.display = "block";
+  if (weatherInfo) weatherInfo.style.display = "none";
+  errorMessage.textContent = "";
+};
 
 searchBtn.addEventListener("click", () => {
   handleSearch();
@@ -29,6 +38,9 @@ function handleSearch() {
     fetchWeatherData(city);
   } else {
     errorMessage.textContent = "Please enter a city name";
+
+    if (weatherInfo) weatherInfo.style.display = "none";
+    if (welcome) welcome.style.display = "block";
   }
 }
 
@@ -45,19 +57,27 @@ function fetchWeatherData(city) {
     .then((data) => {
       errorMessage.textContent = "";
 
+      
+      if (welcome) welcome.style.display = "none";
+      if (weatherInfo) weatherInfo.style.display = "block";
+
       cityName.textContent = data.name;
       temperature.textContent = `${Math.round(data.main.temp)}°C`;
       humidity.textContent = `Humidity: ${data.main.humidity}%`;
       description.textContent = data.weather[0].description;
       wind.textContent = `Wind Speed: ${data.wind.speed} m/s`;
 
-      
       const iconCode = data.weather[0].icon;
       weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
       weatherIcon.style.display = "block";
     })
     .catch((error) => {
       errorMessage.textContent = error.message;
+
+      
+      if (weatherInfo) weatherInfo.style.display = "none";
+      if (welcome) welcome.style.display = "block";
+
       clearWeatherInfo();
     });
 }
@@ -68,7 +88,6 @@ function clearWeatherInfo() {
   humidity.textContent = "";
   description.textContent = "";
   wind.textContent = "";
-
   weatherIcon.src = "";
   weatherIcon.style.display = "none";
 }
