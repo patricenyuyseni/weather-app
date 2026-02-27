@@ -13,6 +13,7 @@ body {
   background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: white;
 }
+
 .container {
   width: 380px;
   padding: 35px;
@@ -108,4 +109,66 @@ body {
 
 .detail-card:hover {
   background: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 90%;
+    padding: 25px;
+  }
+
+  .app-title {
+    font-size: 24px;
+  }
+
+  #city-input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  #search-btn {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .welcome-icon {
+    font-size: 50px;
+  }
+
+  #temperature {
+    font-size: 40px;
+  }
+
+  #weather-icon {
+    width: 60px;
+  }
+
+  .details {
+    grid-template-columns: 1fr; 
+    gap: 10px;
+  }
+
+  .detail-card {
+    font-size: 12px;
+    padding: 12px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    width: 70%;
+    padding: 30px;
+  }
+
+  .app-title {
+    font-size: 28px;
+  }
+
+  #temperature {
+    font-size: 45px;
+  }
+
+  #weather-icon {
+    width: 70px;
+  }
 }
