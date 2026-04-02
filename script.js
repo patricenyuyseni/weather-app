@@ -1,93 +1,62 @@
-const searchBtn = document.getElementById("search-btn");
-const cityInput = document.getElementById("city-input");
-const cityName = document.getElementById("city-name");
-const temperature = document.getElementById("temperature");
-const humidity = document.getElementById("humidity");
-const description = document.getElementById("description");
-const wind = document.getElementById("wind");
-const errorMessage = document.getElementById("error-message");
-const weatherIcon = document.getElementById("weather-icon");
 
+document.addEventListener("DOMContentLoaded", () => {
 
-const welcome = document.getElementById("welcome");
-const weatherInfo = document.getElementById("weather-info");
+  const API_KEY = "7d55c497552816a176b82d8ddeaa241f";
 
-const apiKey = "7d55c497552816a176b82d8ddeaa241f";
+  const cityInput = document.getElementById("cityInput");
+  const searchBtn = document.getElementById("searchBtn");
 
+  const cityName = document.getElementById("cityName");
+  const temp = document.getElementById("temp");
+  const description = document.getElementById("description");
+  const humidity = document.getElementById("humidity");
+  const wind = document.getElementById("wind");
+  const icon = document.getElementById("icon");
+  const error = document.getElementById("error");
 
-window.onload = function () {
-  if (welcome) welcome.style.display = "block";
-  if (weatherInfo) weatherInfo.style.display = "none";
-  errorMessage.textContent = "";
-};
+  searchBtn.addEventListener("click", () => {
+    const city = cityInput.value.trim();
+    if (city) {
+      getWeather(city);
+      localStorage.setItem("lastCity", city);
+    }
+  });
 
-searchBtn.addEventListener("click", () => {
-  handleSearch();
-});
+  function getWeather(city) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.cod !== 200) {
+          throw new Error();
+        }
 
-cityInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    handleSearch();
+        displayWeather(data);
+        error.textContent = "";
+      })
+      .catch(() => {
+        error.textContent = "City not found. Try again.";
+      });
   }
-});
 
-function handleSearch() {
-  const city = cityInput.value.trim();
-
-  if (city) {
-    fetchWeatherData(city);
-  } else {
-    errorMessage.textContent = "Please enter a city name";
-
-    if (weatherInfo) weatherInfo.style.display = "none";
-    if (welcome) welcome.style.display = "block";
+  function displayWeather(data) {
+    cityName.textContent = data.name;
+    temp.textContent = data.main.temp;
+    description.textContent = data.weather[0].description;
+    humidity.textContent = data.main.humidity;
+    wind.textContent = data.wind.speed;
+    icon.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
   }
-}
 
-function fetchWeatherData(city) {
-  fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
-  )
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("City not found");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      errorMessage.textContent = "";
+  function loadWeatherOnStart() {
+    const savedCity = localStorage.getItem("lastCity");
 
-      
-      if (welcome) welcome.style.display = "none";
-      if (weatherInfo) weatherInfo.style.display = "block";
+    if (savedCity) {
+      getWeather(savedCity);
+    } else {
+      getWeather("New York");
+    }
+  }
 
-      cityName.textContent = data.name;
-      temperature.textContent = `${Math.round(data.main.temp)}°C`;
-      humidity.textContent = `Humidity: ${data.main.humidity}%`;
-      description.textContent = data.weather[0].description;
-      wind.textContent = `Wind Speed: ${data.wind.speed} m/s`;
+  loadWeatherOnStart();
 
-      const iconCode = data.weather[0].icon;
-      weatherIcon.src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-      weatherIcon.style.display = "block";
-    })
-    .catch((error) => {
-      errorMessage.textContent = error.message;
-
-      
-      if (weatherInfo) weatherInfo.style.display = "none";
-      if (welcome) welcome.style.display = "block";
-
-      clearWeatherInfo();
-    });
-}
-
-function clearWeatherInfo() {
-  cityName.textContent = "";
-  temperature.textContent = "";
-  humidity.textContent = "";
-  description.textContent = "";
-  wind.textContent = "";
-  weatherIcon.src = "";
-  weatherIcon.style.display = "none";
-}
+});

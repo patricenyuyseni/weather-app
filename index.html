@@ -1,49 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
 <body>
   <div class="container">
-    
-    <h1 class="app-title">Weather App</h1>
+    <h1>Weather App</h1>
 
-    
+
+
     <div class="search-box">
-      <input type="text" id="city-input" placeholder="Search city..." />
-      <button id="search-btn">🔍</button>
+      <input type="text" id="cityInput" placeholder="Enter city..." />
+      <button id="searchBtn">Search</button>
     </div>
 
-    <p id="error-message"></p>
-
-    
-    <div class="welcome-state" id="welcome">
-      <div class="welcome-icon">🌤</div>
-      <p>Search for a city to see the weather</p>
-    </div>
-
-    
-    <div class="weather-info" id="weather-info">
-
-      <h2 id="city-name"></h2>
-
-      <div class="main-weather">
-        <img id="weather-icon" src="" alt="Weather Icon" />
-        <p id="temperature"></p>
-      </div>
-
+    <div id="weather" class="weather-card">
+      <h2 id="cityName"></h2>
+      <img id="icon" alt="Weather icon" />
       <p id="description"></p>
-
-      <div class="details">
-        <div class="detail-card" id="humidity"></div>
-        <div class="detail-card" id="wind"></div>
-      </div>
-
+      <p>🌡️ Temp: <span id="temp"></span> °C</p>
+      <p>💧 Humidity: <span id="humidity"></span>%</p>
+      <p>🌬️ Wind: <span id="wind"></span> m/s</p>
     </div>
+
+    <div class="default-icons">
+  <img src="https://img.icons8.com/color/48/000000/sun.png" alt="Sunny" class="weather-icon" />
+  <img src="https://img.icons8.com/color/48/000000/cloud.png" alt="Cloudy" class="weather-icon" />
+  <img src="https://img.icons8.com/color/48/000000/rain.png" alt="Rainy" class="weather-icon" />
+  <img src="https://img.icons8.com/color/48/000000/snow.png" alt="Snowy" class="weather-icon" />
+</div>
+
+    <p id="error" class="error"></p>
   </div>
 
   <script src="script.js"></script>
 </body>
+</html>
